@@ -1,4 +1,21 @@
 window.onload = function() {
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    function openMenu() {
+        mobileMenu.classList.remove('hidden');
+    }
+
+    function closeMenu() {
+        mobileMenu.classList.add('hidden');
+    }
+
+    menuBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+
+
+
     // 電影數據
     const movies = [
         { title: "加菲貓：農場大冒險", category: "comedy", image: "../images/606127cd59d1cb68a63fd70dbbb88e8d.jpg" },
@@ -25,30 +42,27 @@ window.onload = function() {
         `;
     }
 
-    // 顯示電影
-    function displayMovies(category = 'all') {
-        movieGrid.innerHTML = '';
-        movies.forEach(movie => {
-            if (category === 'all' || movie.category === category) {
-                movieGrid.innerHTML += createMovieCard(movie);
-            }
-        });
-    }
+    
 
-    // 初始顯示所有電影
-    displayMovies();
 
-    // 添加篩選功能
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const category = button.getAttribute('data-category');
-            displayMovies(category);
 
-            // 更新按鈕樣式
-            filterButtons.forEach(btn => btn.classList.replace('bg-blue-500', 'bg-gray-300'));
-            filterButtons.forEach(btn => btn.classList.replace('text-white', 'text-gray-700'));
-            button.classList.replace('bg-gray-300', 'bg-blue-500');
-            button.classList.replace('text-gray-700', 'text-white');
+
+    const backToTopBtn = document.getElementById('backToTopBtn');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.remove('opacity-0');
+            backToTopBtn.classList.add('opacity-100');
+        } else {
+            backToTopBtn.classList.remove('opacity-100');
+            backToTopBtn.classList.add('opacity-0');
+        }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
     });
 }
